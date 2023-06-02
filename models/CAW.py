@@ -8,7 +8,7 @@ class Generator(nn.Module):
         self.body = nn.Sequential()
         self.Fs = params.current_fs
         for i in range(params.num_layers - 2):
-            block = ConvBlock(params, params.hidden_channels, params.hidden_channels, params.dilation_factors[i + 1])
+            block = ConvBlock(params, params.hidden_channels, params.hidden_channels, params.dilation_factors[i + 1], padding=params.padding)
             self.body.add_module('block%d' % (i + 1), block)
         self.tail = nn.Sequential()
         self.tail.add_module('tail0',
@@ -50,7 +50,7 @@ class Discriminator(nn.Module):
             mask = params.current_holes
         else:
             mask = None
-        self.head = ConvBlock(params, 1, params.hidden_channels, params.dilation_factors[0], mask=mask)
+        self.head = ConvBlock(params, 1, params.hidden_channels, params.dilation_factors[0], mask=mask, padding=params.padding)
         mask = self.head.mask_out
         self.body = nn.ModuleList()
         for i in range(params.num_layers - 2):

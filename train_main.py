@@ -46,9 +46,12 @@ if params.manual_random_seed != -1:
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
+    
 # Get input signal
+
 samples = get_input_signal(params)
 # set scales
+# print("params.Fs :   ",params.Fs)
 params.fs_list = [f for f in params.fs_list if f <= params.Fs]
 if params.fs_list[-1] != params.Fs:
     params.fs_list.append(params.Fs)

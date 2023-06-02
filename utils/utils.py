@@ -18,6 +18,7 @@ def get_noise(params, shape):
 
 def stitch_signals(real_signal, signal_to_stitch, frame_idcs, window_size=2 ** 14 - 1):
     naive_stitched_signal = np.copy(real_signal)
+    print(naive_stitched_signal.shape, signal_to_stitch.shape)
     for idx in frame_idcs:
         naive_stitched_signal[idx] = signal_to_stitch[idx]
     # overlap add between real and generated signals
@@ -178,6 +179,7 @@ def resample_sig(params, input_signal, orig_fs=None, target_fs=None):
 
 def get_input_signal(params):
     file_name = params.input_file.split('.')
+    
     if len(file_name) < 2:
         params.input_file = '.'.join([params.input_file, 'wav'])
     output_folder = file_name[0].replace(' ', '_')
@@ -200,7 +202,6 @@ def get_input_signal(params):
                                            duration=params.segments_to_train[idx + 1] - params.segments_to_train[
                                                idx])
                 samples = np.concatenate((samples, _samples))
-
     if samples.shape[0] / Fs > params.max_length:
         n_samples = int(params.max_length * Fs)
         samples = samples[:n_samples]

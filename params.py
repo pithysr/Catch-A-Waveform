@@ -12,8 +12,9 @@ class Params(object):
         self.plot_signals = False
         self.manual_random_seed = -1 # -1 for no setting
         self.plot_losses = False
-        self.init_sample_rate = 16000
-        self.fs_list = [320, 400, 500, 640, 800, 1000, 1280, 1600, 2000, 2500, 4000, 8000, 10000, 12000, 14400, 16000]
+        self.init_sample_rate = 96000
+#         self.fs_list = [320, 400, 500, 640, 800, 1000, 1280, 1600, 2000, 2500, 4000, 8000, 10000, 12000, 14400, 16000, 32000, 48000, 96000]
+        self.fs_list = [14400,32000,96000]
         self.run_mode = 'normal'
         self.speech = False
         self.set_first_scale_by_energy = True
@@ -37,7 +38,8 @@ class Params(object):
         ###########################
         # Optimization Parameters #
         ###########################
-        self.num_epochs = 2000
+#         self.num_epochs = 2000
+        self.num_epochs = 100
         self.learning_rate = 0.0015
         self.scheduler_lr_decay = 0.1
         self.beta1 = 0.5
@@ -49,3 +51,4 @@ class Params(object):
         self.num_layers = 8
         self.hidden_channels_init = 16
         self.growing_hidden_channels_factor = 6
+        self.padding = 0    # SR: to be used in ConvBlock > conv1D layers

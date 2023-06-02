@@ -26,7 +26,7 @@ class NormConv1d(nn.Module):
 
 
 class ConvBlock(nn.Sequential):
-    def __init__(self, params, in_channels, out_channels, dilation=1, filter_size=None, mask=None):
+    def __init__(self, params, in_channels, out_channels, dilation=1, filter_size=None, mask=None, padding=0):
         super(ConvBlock, self).__init__()
         if filter_size is None:
             filter_size = params.filter_size
@@ -43,7 +43,7 @@ class ConvBlock(nn.Sequential):
 
         else:
             self.mask_out = None
-        self.conv = NormConv1d(in_channels, out_channels, filter_size, dilation=dilation)
+        self.conv = NormConv1d(in_channels, out_channels, filter_size, dilation=dilation, padding=params.padding)
         self.norm = nn.BatchNorm1d(out_channels)
         self.activation = nn.LeakyReLU(0.2, inplace=True)
 

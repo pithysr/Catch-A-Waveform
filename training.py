@@ -85,6 +85,7 @@ def train_single_scale(params, signals_list, fs_list, generators_list, noise_amp
     signal_padder = nn.ConstantPad1d(pad_size, 0)
 
     # Initialize models
+    print(params.padding)
     netD = CAW.Discriminator(params).to(params.device)
     netD.apply(CAW.weights_init)
     netG = CAW.Generator(params).to(params.device)
